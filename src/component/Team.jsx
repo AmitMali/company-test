@@ -1,5 +1,7 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
+import { peoples } from "../data/peoplesData";
+import { cleanedArrayToString } from "../utils/arrayUtil";
 const Team = () => {
   const designations = [
     "All",
@@ -11,58 +13,7 @@ const Team = () => {
   ];
   const locations = ["All", "london", "india", "australia"];
   const titles = ["All", "Founders", "Partners"];
-  const peoples = [
-    {
-      name: "Scott Johnson",
-      image: "img/person1.png",
-      designation: ["All", "Web Designer", "Full stack Developer"],
-      location: ["All", "london"],
-      title: ["All", "Founders"],
-    },
-    {
-      name: "Scott Johnson",
-      image: "img/person1.png",
-      designation: ["All", "Web Designer", "UI Designer"],
-      location: ["All", "india", "london"],
-      title: ["All", "Founders"],
-    },
-    {
-      name: "Scott Johnson",
-      image: "img/person1.png",
-      designation: ["All", "Software Developer"],
-      location: ["All", "london", "australia"],
-      title: ["All", "Partners"],
-    },
-    {
-      name: "Scott Johnson",
-      image: "img/person1.png",
-      designation: ["All", "System Designer"],
-      location: ["All", "london", "australia", "india"],
-      title: ["All", "Partners"],
-    },
-    {
-      name: "Scott Johnson",
-      image: "img/person1.png",
-      designation: [
-        "All",
-        "Web Designer",
-        "System Designer",
-        "Full stack Developer",
-      ],
-      location: ["All", "india"],
-      title: ["All", "Partners"],
-    },
-    {
-      name: "Scott Johnson",
-      image: "img/person1.png",
-      designation: ["All", "Full stack Developer"],
-      location: ["All", "australia"],
-      title: ["All", "Partners"],
-    },
-  ];
-  function cleanedArrayToString(arr) {
-    return arr.slice(1).toString().split(",").join(", ");
-  }
+
   const [team, setTeam] = useState(peoples);
   const [designation, setDesignation] = useState("All");
   const [title, setTitle] = useState("All");
@@ -167,15 +118,17 @@ const Team = () => {
         <div className="row">
           {team.map((person, i) => {
             return (
-              <div className="col-4">
-                <div className="card-body2">
-                  <img className="card-img-top2" src={person.image} alt="" />
-                  <h3 className="card-heading2">{person.name}</h3>
-                  <p className="text-secondary-emphasis">
-                    {cleanedArrayToString(person.designation)}
-                  </p>
+              <Link to={`/team/${person.id}`}>
+                <div className="col-4">
+                  <div className="card-body2">
+                    <img className="card-img-top2" src={person.image} alt="" />
+                    <h3 className="card-heading2">{person.name}</h3>
+                    <p className="text-secondary-emphasis">
+                      {cleanedArrayToString(person.designation)}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
